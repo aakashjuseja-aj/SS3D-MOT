@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+      
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>SS3D-MOT-</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<!--     <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+  <!-- <link rel="icon" type="image/png" href="img/seal_icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    
+    <script src="js/app.js"></script>
+
+    <style>
+        .video-container {
+            text-align: center;
+        }
+        .video-container iframe {
+            margin: 0 10px; /* Adjust the margin value as needed */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                Self Supervised Learning for Multiple Object Tracking </br>  in 3D Point Clouds </br> 
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="">
+                          Aakash Kumar
+                        </a>
+                        </br>University of Central Florida
+                    </li><br> <br>
+                    <li>
+                        <a href="">
+                            Jyoti Kini
+                        </a>
+                        </br>University of Central Florida
+                    </li>
+                    <li>
+                        <a href="">
+                         Ajmal Mian
+                        </a>
+                        </br>University of Western Australia
+                    </li>
+                    <li>
+                        <a href="">
+                          Mubarak Shah
+                        </a>
+                        </br>Univerity of Central Florida
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <ul class="nav nav-pills nav-justified">
+                        <li>
+                            <a href="https://ieeexplore.ieee.org/document/9981793">
+                            <image src="img/mip_paper_image.jpg" height="60px">
+                                <h4><strong>Paper</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/embed/BssTLNMKnIk?si=KssK3VERBnGcxG8k">
+                            <image src="img/youtube_icon.png" height="60px">
+                                <h4><strong>Video</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                            <image src="img/github.png" height="60px">
+                                <h4><strong>Code</strong></h4>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Abstract
+                </h3>
+                <!--<image src="img/architecture_iros2024.png" class="img-responsive" alt="overview"><br>-->
+                <p class="text-justify">
+                    Multiple object tracking in 3D point clouds has applications in mobile robots and autonomous driving. This is a challenging problem due to the sparse nature of the point clouds and the added difficulty of annotation in 3D for supervised learning. To overcome these challenges, we propose a neural network architecture that learns effective object features and their affinities in a self supervised fashion for multiple object tracking in 3D point clouds captured with LiDAR sensors. For self supervision, we use two approaches. First, we generate two augmented LiDAR frames from a single real frame by applying translation, rotation and cutout to the objects. Second, we synthesize a LiDAR frame using CAD models or primitive geometric shapes and then apply the above three augmentations to them. Hence, the ground truth object locations and associations are known in both frames for self supervision. This removes the need to annotate object associations in real data, and additionally the need for training data collection and annotation for object detection in synthetic data. To the best of our knowledge, this is the first self supervised multiple object tracking method for 3D data.  Our model achieves state of the art results.
+                </p>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Video
+                </h3>
+                <div class="text-center">
+                    <div style="position:relative;padding-top:56.25%;">
+                        <iframe src="https://www.youtube.com/embed/BssTLNMKnIk?si=KssK3VERBnGcxG8k" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Proposed Network Architecture
+                </h3>
+                <p class="text-justify">
+                    In self-supervised learning, detected objects in a single LiDAR frame (real or synthetic) are cropped to create frame \( A \) without background. Objects in \( A \) are augmented with translation, rotation, and cutout to generate frames \( B \) and \( \Gamma \). Fixing the number of points per object to \( p = 256 \), a \( 3 \times p \times N \) matrix (where \( N \) is the number of objects) is formed to represent a LiDAR frame which is then passed through the object feature extractor that consists of five convolution layers followed by max-pooling along the \( p \) dimension. A box-feature extractor comprising 3 convolution layers extracts box features which are concatenated with object features. Combined features of \( N \) objects from two LiDAR frames are permuted to form an \( N \times N \times (576 \times 2) \) matrix \( \mu \) which is passed through five convolution layers to gradually decrease the depth of \( \mu \) and compute an \( N \times N \) affinity matrix \( M \). All convolution kernels in SS3D-MOT network are of size \( 1 \times 1 \). To account for objects entering and leaving the scene, \( M \) is augmented with an extra column and row. Finally, row-wise and column-wise soft-max are performed to get \( M_C \) and \( M_R \) matrices used to compute the loss.
+                </p>
+                <p style="text-align:center;">
+                    <image src="img/SSMOT_architecture.png" height="50px" class="img-responsive">
+                </p>
+
+                <h3>
+                    Synthetic Lidar Frames
+                </h3>
+                <p class="text-justify">
+                    Synthetic LiDAR frames generated from (a) CAD objects (ModelNet-40 data), and (b) primitive shapes (cones, cubes etc). We  place the objects at different locations in 3D space to create a synthetic LiDAR frame which is then augmented to form two frames with known ground truth movements of the objects. For augmentation, we use translation, rotation and object cut out (to simulate occlusion).
+                </p>
+                <p style="text-align:center;">
+                    <image src="img/Teaser_new.png" height="50px" class="img-responsive" style="display: block; margin: auto; width: 500px;">
+                </p>
+                <h3>
+                    Qualitative Results
+                </h3>
+                <p class="video-container">
+                    <iframe width="350" height="520" src="https://www.youtube.com/embed/LWYrJY2QtHI?si=rJFMMloMo9b2gu2R" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="350" height="520" src="https://www.youtube.com/embed/Bl7dRQVfk7Q?si=iueegABbjDXm_pX3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </p>
+
+                <h3>
+                    Quantitative Results
+                 </h3>
+                 <p class="text-justify">
+                    Results from the JRDB Leaderboard. Our model achieves the best MOTA,  IDF1 and HOTA scores on the leaderboard using self supervision with synthetic frames generated from CAD objects.                 </p>
+                 <p style="text-align:center;">
+                     <image src="img/Quantitative_Results.png" class="img-responsive" alt="scales" style="display: block; margin: auto; width: 650px;">
+                 </p>
+
+
+
+                <!---
+                <video id="v0" width="100%" autoplay loop muted>
+                  <source src="img/pe_anim_horiz.mp4" type="video/mp4" />
+                </video>
+                <p class="text-justify">
+                    Here, we show how these feature vectors change as a function of a point moving in 1D space.
+                    <br><br>
+                    Our <em>integrated positional encoding</em> considers Gaussian <em>regions</em> of space, rather than infinitesimal points. This provides a natural way to input a "region" of space as query to a coordinate-based neural network, allowing the network to reason about sampling and aliasing. The expected value of each positional encoding component has a simple closed form:
+                </p>
+                <p style="text-align:center;">
+                    <image src="img/ipe_eqn_under_pad.png" height="30px" class="img-responsive">
+                </p>
+                <video id="v0" width="100%" autoplay loop muted>
+                  <source src="img/ipe_anim_horiz.mp4" type="video/mp4" />
+                </video>
+                <p class="text-justify">
+                    We can see that when considering a wider region, the higher frequency features automatically shrink toward zero, providing the network with lower-frequency inputs. As the region narrows, these features converge to the original positional encoding.
+                </p>
+            -->
+            </div>
+        </div>
+            
+                    
+            
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Citation
+                </h3>
+                <div class="form-group col-md-10 col-md-offset-1">
+                    <textarea id="bibtex" class="form-control" readonly>
+@article{SparceToDence,
+    title={Self Supervised Learning for Multiple Object Tracking\\ in 3D Point Clouds},
+    author={Aakash Kumar and Jyoti Kini and 
+            Ajmal Mian and Mubarak Shah},
+    journal={},
+    year={}
+}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Acknowledgements
+                </h3>
+                <p class="text-justify">
+                    The website template was borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a> and <a href="https://github.com/taoyang1122/taoyang1122.github.io">Taoyang</a>.
+                    </p>
+                    <p class="text-justify">
+                   </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
